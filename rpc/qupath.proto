@@ -1,0 +1,42 @@
+syntax = "proto3";
+package qupath.api;
+option java_package = "qupath.api";
+option java_multiple_files = true;
+
+message ImageId { string id = 1; }
+message ImageMeta {
+  string id = 1;
+  int32 width = 2;
+  int32 height = 3;
+  repeated int32 pyramid_levels = 4;
+  int32 tile_size = 5;
+  string pixel_format = 6;
+}
+
+message TileRequest {
+  ImageId image = 1;
+  int32 level = 2;
+  int32 x = 3;
+  int32 y = 4;
+  bool compressed = 5;
+}
+
+message TileChunk {
+  bytes data = 1;
+  bool final_chunk = 2;
+  int32 chunk_index = 3;
+}
+
+message TaskRequest { string payload = 1; }
+message TaskHandle { string id = 1; }
+message TaskStatus { string status = 1; int32 progress = 2; }
+message EventFilter { string topic = 1; }
+message Event { string topic = 1; string payload = 2; }
+
+service ImageService {
+  rpc GetImageMeta(ImageId) returns (ImageMeta);
+  rpc StreamTile(TileRequest) returns (stream TileChunk);
+  rpc SubmitTask(TaskRequest) returns (TaskHandle);
+  rpc SubscribeTaskStatus(TaskHandle) returns (stream TaskStatus);
+  rpc SubscribeEvents(EventFilter) returns (stream Event);
+}

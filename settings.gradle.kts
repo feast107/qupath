@@ -61,6 +61,9 @@ include("qupath-extension-script-editor")
 include("qupath-extension-openslide")
 include("qupath-extension-bioformats")
 
+// Headless bridge for non-Java UIs (e.g. Avalonia frontend)
+// `qupath-bridge` removed from this build (IKVM support dropped)
+
 // Support JavaFX dependency override
 // This can be used to create a build for older versions of macOS
 dependencyResolutionManagement {

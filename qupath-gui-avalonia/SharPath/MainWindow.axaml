@@ -1,0 +1,98 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vms="clr-namespace:SharPath.ViewModels"
+    xmlns:ctrls="clr-namespace:SharPath.Controls;assembly=SharPath"
+        mc:Ignorable="d"
+        d:DesignWidth="1200"
+        d:DesignHeight="800"
+        x:Class="SharPath.MainWindow"
+        x:DataType="vms:MainWindowViewModel"
+        Title="{Binding Title}">
+    <DockPanel>
+        <!-- 菜单栏 -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open Project..."
+                          Command="{Binding OpenProjectCommand}" />
+                <Separator/>
+                <MenuItem Header="E_xit"
+                          Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Reset Layout" />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About QuPath Avalonia Shell" />
+            </MenuItem>
+        </Menu>
+
+        <!-- 主体布局 -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="320" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="28" />
+            </Grid.RowDefinitions>
+
+            <!-- 左侧面板（项目/图层等占位） -->
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="4"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    BorderBrush="#404040"
+                    Background="#202020">
+                <TextBlock Text="Left Panel (Projects / Objects)"
+                           Margin="8"
+                           VerticalAlignment="Top" />
+            </Border>
+
+            <!-- 中间图像视图 -->
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="4"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    BorderBrush="#404040"
+                    Background="#101010">
+                <ctrls:ImageViewer SourcePath="{Binding ImagePath}" />
+            </Border>
+
+            <!-- 右侧面板（测量/属性/脚本占位） -->
+            <Border Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="4"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    BorderBrush="#404040"
+                    Background="#202020">
+                <TextBlock Text="Right Panel (Details / Measurements)"
+                           Margin="8"
+                           VerticalAlignment="Top" />
+            </Border>
+
+            <!-- 状态栏 -->
+            <Border Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Background="#2b2b2b"
+                    BorderBrush="#404040"
+                    BorderThickness="1,0,1,1"
+                    Padding="8,4">
+                <DockPanel>
+                    <TextBlock Text="{Binding BackendStatus}"
+                               Foreground="#d0d0d0"
+                               DockPanel.Dock="Left" />
+                    <TextBlock Text="{Binding BackendVersion}"
+                               Foreground="#808080"
+                               HorizontalAlignment="Right" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

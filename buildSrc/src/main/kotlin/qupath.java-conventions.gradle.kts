@@ -45,8 +45,9 @@ tasks.withType<Jar> {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
-afterEvaluate {
-    tasks.withType<Jar> {
+tasks.withType<Jar>().configureEach {
+    // Avoid using afterEvaluate (Gradle 9+ restrictions); evaluate late via doFirst.
+    doFirst {
         // Important to set version so this can be queried within QuPath
         manifest {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")

@@ -1,0 +1,38 @@
+syntax = "proto3";
+package qupath.api;
+
+option csharp_namespace = "QuPath.Api";
+
+message ImageId { string id = 1; }
+
+message ImageMeta {
+  string id = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 tile_size = 4;
+  string pixel_format = 5;
+}
+
+message TileRequest {
+  ImageId image = 1;
+  int32 level = 2;
+  int32 x = 3;
+  int32 y = 4;
+}
+
+message TileChunk {
+  bytes data = 1;
+  int32 x = 2;
+  int32 y = 3;
+  int32 width = 4;
+  int32 height = 5;
+}
+
+message UploadChunk { bytes data = 1; }
+message UploadResponse { string slide_id = 1; }
+
+service ImageService {
+  rpc UploadSlide(stream UploadChunk) returns (UploadResponse);
+  rpc GetImageMeta(ImageId) returns (ImageMeta);
+  rpc StreamTile(TileRequest) returns (stream TileChunk);
+}

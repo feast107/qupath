@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SharPath.Controls.ImageViewer">
+  <Border Background="Transparent">
+    <ScrollViewer Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+      <Grid>
+        <Image Name="PART_Image" RenderTransformOrigin="0.5,0.5" />
+      </Grid>
+    </ScrollViewer>
+  </Border>
+</UserControl>

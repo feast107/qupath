@@ -1,6 +1,5 @@
 plugins {
   id("qupath.common-conventions")
-  id("qupath.publishing-conventions")
   `java-library`
 }
 
